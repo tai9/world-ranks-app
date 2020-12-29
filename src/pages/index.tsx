@@ -10,6 +10,8 @@ import {
 } from "../components/CountriesTable/CountriesTable";
 
 const Home: React.FC<Props> = ({ countries }) => {
+  console.log(countries);
+
   const [keyword, setKeyword] = useState<string>("");
 
   const filterdCountries = countries.filter(

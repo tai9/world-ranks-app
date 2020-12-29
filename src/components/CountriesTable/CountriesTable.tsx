@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./Countries.module.css";
 import KeyboardArrowDownRoundedIcon from "@material-ui/icons/KeyboardArrowDownRounded";
 import KeyboardArrowUpRoundedIcon from "@material-ui/icons/KeyboardArrowUpRounded";
+import Link from "next/link";
 
 export type Props = {
   countries?: CountryProps[];
@@ -9,6 +10,7 @@ export type Props = {
 
 export type CountryProps = {
   name: string;
+  alpha3Code: string;
   population: number;
   capital: string;
   region: string;
@@ -81,10 +83,12 @@ const CountriesTable: React.FC<Props> = ({ countries }) => {
 
       {orderdCountries.map((country: CountryProps, index) => {
         return (
-          <div className={styles.row} key={index}>
-            <div className={styles.name}>{country.name}</div>
-            <div className={styles.population}>{country.population}</div>
-          </div>
+          <Link key={index} href={`/country/${country.alpha3Code}`}>
+            <div className={styles.row}>
+              <div className={styles.name}>{country.name}</div>
+              <div className={styles.population}>{country.population}</div>
+            </div>
+          </Link>
         );
       })}
     </div>
