@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import styles from "./Countries.module.css";
 import KeyboardArrowDownRoundedIcon from "@material-ui/icons/KeyboardArrowDownRounded";
 import KeyboardArrowUpRoundedIcon from "@material-ui/icons/KeyboardArrowUpRounded";
-import { type } from "os";
 
-type Props = {
+export type Props = {
   countries?: CountryProps[];
 };
 
-type CountryProps = {
+export type CountryProps = {
   name: string;
   population: number;
+  capital: string;
+  region: string;
+  subregion: string;
 };
 
 type DirectionType = "asc" | "desc";
