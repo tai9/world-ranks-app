@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { GetServerSideProps } from "next";
+import { GetStaticProps } from "next";
 import Layout from "../../components/Layout/Layout";
 import {
   CountryProps,
@@ -87,7 +87,9 @@ const Country = ({ country }: Props) => {
             </div>
             <div className={styles.detail_panel_row}>
               <div className={styles.detail_panel_label}>Gini</div>
-              <div className={styles.detail_panel_value}>{country.gini} %</div>
+              <div className={styles.detail_panel_value}>
+                {country.gini || 0} %
+              </div>
             </div>
 
             <div className={styles.detail_panel_borders}>
@@ -115,7 +117,21 @@ const Country = ({ country }: Props) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getStaticPaths = async () => {
+  const res = await fetch("https://restcountries.eu/rest/v2/all");
+  const countries: CountryProps[] = await res.json();
+
+  const paths = countries?.map((country) => ({
+    params: { id: country.alpha3Code },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const country = await getCountry(params.id);
 
   return {
