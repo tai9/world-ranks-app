@@ -30,3 +30,17 @@
   font-size: 0.75rem;
   padding-bottom: 20px;
 }
+
+.themeSwitcher {
+  border: none;
+  background-color: transparent;
+  color: var(--text-color-secondary);
+  padding: 0;
+  margin-left: 4px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  outline: none;
+}

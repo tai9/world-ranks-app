@@ -1,12 +1,38 @@
 import Head from "next/head";
 import Link from "next/link";
 import styles from "./Layout.module.css";
+import Brightness6RoundedIcon from "@material-ui/icons/Brightness6Rounded";
+import { useEffect, useState } from "react";
 
 type Props = {
   title: string;
 };
 
+type ThemeTypes = "light" | "dark";
+
 const Layout: React.FC<Props> = ({ children, title }) => {
+  const [theme, setTheme] = useState<ThemeTypes>();
+
+  useEffect(() => {
+    const localTheme = localStorage.getItem("theme");
+    if (localTheme !== null) {
+      document.documentElement.setAttribute("data-theme", localTheme);
+      setTheme(localTheme as ThemeTypes);
+    } else {
+      saveTheme("dark");
+    }
+  }, []);
+
+  const switchTheme = () => {
+    theme === "light" ? saveTheme("dark") : saveTheme("light");
+  };
+
+  const saveTheme = (theme: ThemeTypes) => {
+    setTheme(theme);
+    localStorage.setItem("theme", theme);
+    document.documentElement.setAttribute("data-theme", theme);
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -42,6 +68,10 @@ const Layout: React.FC<Props> = ({ children, title }) => {
             <rect y="4" width="7.33333" height="4.4" rx="2" fill="#21B6B7" />
           </svg>
         </Link>
+
+        <button className={styles.themeSwitcher} onClick={switchTheme}>
+          <Brightness6RoundedIcon />
+        </button>
       </header>
 
       <main className={styles.main}>{children}</main>

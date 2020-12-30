@@ -87,7 +87,7 @@ const Country = ({ country }: Props) => {
             </div>
             <div className={styles.detail_panel_row}>
               <div className={styles.detail_panel_label}>Gini</div>
-              <div className={styles.detail_panel_value}>{country.gini}</div>
+              <div className={styles.detail_panel_value}>{country.gini} %</div>
             </div>
 
             <div className={styles.detail_panel_borders}>
@@ -95,8 +95,11 @@ const Country = ({ country }: Props) => {
                 Neighbouring Countries
               </div>
               <div className={styles.detail_panel_borders_container}>
-                {borders.map(({ flag, name }: CountryProps) => (
-                  <div className={styles.detail_panel_borders_country}>
+                {borders.map(({ flag, name }: CountryProps, index) => (
+                  <div
+                    className={styles.detail_panel_borders_country}
+                    key={index}
+                  >
                     <img src={flag} alt={name} />
                     <div className={styles.detail_panel_borders_name}>
                       {name}
