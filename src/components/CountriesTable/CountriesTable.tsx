@@ -4,17 +4,30 @@ import KeyboardArrowDownRoundedIcon from "@material-ui/icons/KeyboardArrowDownRo
 import KeyboardArrowUpRoundedIcon from "@material-ui/icons/KeyboardArrowUpRounded";
 import Link from "next/link";
 
-export type Props = {
+export type CountriesProps = {
   countries?: CountryProps[];
 };
 
 export type CountryProps = {
   name: string;
+  area: string;
   alpha3Code: string;
+  borders: [];
   population: number;
   capital: string;
   region: string;
   subregion: string;
+  flag: string;
+  languages: [
+    {
+      name: string;
+    }
+  ];
+  currencies: Array<{
+    name: string;
+  }>;
+  nativeName: string;
+  gini: string;
 };
 
 type DirectionType = "asc" | "desc";
@@ -48,7 +61,7 @@ const SortArrow = ({ sort }: SortArrowProps) => {
   );
 };
 
-const CountriesTable: React.FC<Props> = ({ countries }) => {
+const CountriesTable: React.FC<CountriesProps> = ({ countries }) => {
   const [direction, setDirection] = useState<DirectionType>("desc");
   const [valueDirection, setValueDirection] = useState<CountryType>("name");
   const orderdCountries = orderBy(countries, valueDirection, direction);
