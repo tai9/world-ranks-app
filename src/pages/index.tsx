@@ -5,13 +5,11 @@ import Layout from "../components/Layout/Layout";
 import SearchInput from "../components/SearchInput/SearchInput";
 import styles from "../styles/Home.module.css";
 import {
-  Props,
+  CountriesProps,
   CountryProps,
 } from "../components/CountriesTable/CountriesTable";
 
-const Home: React.FC<Props> = ({ countries }) => {
-  console.log(countries);
-
+const Home: React.FC<CountriesProps> = ({ countries }) => {
   const [keyword, setKeyword] = useState<string>("");
 
   const filterdCountries = countries.filter(
@@ -28,12 +26,15 @@ const Home: React.FC<Props> = ({ countries }) => {
 
   return (
     <Layout title="World Ranks">
-      <div className={styles.counts}>Found {countries.length} countries</div>
-
-      <SearchInput
-        placeholder="Filter by Name, Capital, Region or SubRegion"
-        onChange={handleChangeInput}
-      />
+      <div className={styles.inputContainer}>
+        <div className={styles.counts}>Found {countries.length} countries</div>
+        <div className={styles.input}>
+          <SearchInput
+            placeholder="Filter by Name, Capital, Region or SubRegion"
+            onChange={handleChangeInput}
+          />
+        </div>
+      </div>
 
       <CountriesTable countries={filterdCountries} />
     </Layout>
